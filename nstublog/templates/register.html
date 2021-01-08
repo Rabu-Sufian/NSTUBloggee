@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="ui container margin">
+    <div id="register">
+        <h1 class="register">Register as?</h1>
+    </div>
+</div>
+<div class="ui container">
+    <div class="ui two column grid centered">
+        <div class="column box-card">
+            <div class="ui fluid card">
+                <div class="image">
+                    <img src="{{ url_for('static', filename='images/daniel.jpg') }}">
+                </div>
+                <div class="content">
+                    <a href="{{ url_for('student_registration') }}" class="header">Student</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="column box-card">
+            <div class="ui fluid card">
+                <div class="image">
+                    <img src="{{ url_for('static', filename='images/elliot.jpg') }}">
+                </div>
+                <div class="content">
+                    <a href="{{ url_for('teacher_registration') }}" class="header">Teacher</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

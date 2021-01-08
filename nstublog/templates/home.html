@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block header %}
+
+<section class="hero" id="hero">
+    <div class="container">
+        <h2 class="sub-headline">
+            <span class="first-letter">W</span>elcome
+        </h2>
+        <h1 class="headline">NSTU Blogging Site</h1>
+        <div class="headline-description">
+            <div class="separator">
+                <div class="line line-left"></div>
+                <div class="asterisk"><i class="fas fa-asterisk"></i></div>
+                <div class="line line-right"></div>
+            </div>
+            <div class="single-animation">
+                <h5>Ready to be opened</h5>
+                <a href="#" class="btn cta-btn">Explore</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock header %}
+<!--Hero ends-->
+{% block content %}
+
+    <h1 style="margin-left: 15rem;">Teacher's Posts</h1>
+    <div class="ui internally celled grid container" style="margin-top: 5rem;">
+        {% for post in postss[-1:] %}
+            <div class="row">
+                <div class="thirteen wide column">
+                    <div class="blog-post">
+                        <div class="blog-post_img">
+                            <img src="{{ url_for('static', filename='images/' + post.image) }}" alt="">
+                        </div>
+                        <div class="blog-post_info">
+                            <div class="blog-post_date">
+                                <span>{{post.pub_date.strftime('%Y %B %d')}}</span>
+                            </div>
+                            <h1 class="blog-post_title">{{ post.title }}</h1>
+                            <h4>By {{ post.author.username }}</h4>
+                            <p class="blog-post_text">
+                                {{ post.body | truncate(150, True) }}
+                            </p>
+                            <a href="{{ url_for('post', post_id=post.id) }}" class="blog-post_cta">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="three wide column">
+                    <form action="search" method="GET">
+                        <div class="ui icon input">
+                            <input type="text" name="keyword" id="keyword" placeholder="Search...">
+                            <button type="submit"><i class="search link icon"></i></button>
+                        </div>
+                    </form>    
+                    <div class="ui large vertical menu">
+                        {% for category, count in categories_count_list  %}
+                            <a href="{{ url_for('get_category', id=category.id) }}" class="item"> 
+                                <span>{{ category.name }}</span>
+                                <span style="float: right;">{{ count }}</span>
+                            </a> 
+                        {% endfor %}
+                    </div>
+                </div>       
+            </div>
+        {% endfor %}     
+        <h1 style="margin-left: 15rem;">Student's Posts</h1>
+        {% for post in posts[-1:] %}
+            <div class="row">
+                <div class="thirteen wide column">
+                    <div class="blog-post">
+                        <div class="blog-post_img">
+                            <img src="{{ url_for('static', filename='images/' + post.image) }}" alt="">
+                        </div>
+                        <div class="blog-post_info">
+                            <div class="blog-post_date">
+                                <span>{{post.pub_date.strftime('%Y %B %d')}}</span>
+                            </div>
+                            <h1 class="blog-post_title">{{ post.title }}</h1>
+                            <h4>By {{ post.author.username }}</h4>
+                            <p class="blog-post_text">
+                                {{ post.body | truncate(150, True) }}
+                            </p>
+                            <a href="{{ url_for('post', post_id=post.id) }}" class="blog-post_cta">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="three wide column">
+                    
+                </div>     
+            </div>  
+        {% endfor %}      
+    </div>
+{% endblock content %}

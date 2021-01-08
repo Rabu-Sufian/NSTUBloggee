@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="ui container margin">
+    {% if posts.items %}
+        {% for post in posts.items %}
+            <div class="blog-post">
+                <div class="blog-post_img">
+                    <img src="{{ url_for('static', filename='images/' + post.image) }}" alt="">
+                </div>
+                <div class="blog-post_info">
+                    <div class="blog-post_date">
+                        <span>{{post.pub_date.strftime('%Y %B %d')}}</span>
+                    </div>
+                    <h1 class="blog-post_title">{{ post.title }}</h1>
+                    <h4>By {{ post.author.username }}</h4>
+                    <p class="blog-post_text">
+                        {{ post.body | truncate(150, True) }}
+                    </p>
+                    <a href="{{ url_for('post', post_id=post.id) }}" class="blog-post_cta">Read More</a>
+                </div>
+            </div>
+            <br>
+        {% endfor %}
+        {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+            <div class="ui massive pagination menu">
+                {% if page_num %}
+                    {% if posts.page == page_num %}
+                        <a class="active item" href="{{ url_for('get_studcategory', id=category.id, page=page_num) }}">{{ page_num }}</a>
+                    {% else %} 
+                    <a class="item" href="{{ url_for('get_studcategory', id=category.id, page=page_num) }}">{{ page_num }}</a>
+                    {% endif %} 
+                {% else %}
+                ...
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <h1>No Posts in this category yet.</h1>
+    {% endif %}    
+</div>    
+{% endblock content %}

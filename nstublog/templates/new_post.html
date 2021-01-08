@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="ui container margin">
+    <div class="ui segment">
+        <form method="POST" action="" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <div class="ui huge form">
+                <div class="field">
+                    <label style="color: #c59d5f;">Title</label>
+                    {% if form.title.errors %}
+                    <div class="ui form error">
+                        <div class="field error">
+                            {{ form.title }}
+                        </div>    
+                        <div class="ui error message">
+                            {% for error in form.title.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    </div> 
+                    {% else %}
+                    {{ form.title(placeholder="Enter your Title") }}
+                    {% endif %}
+                </div>
+                <label style="color: #c59d5f;">Choose Post Category</label>
+                    {{ form.category }}
+                    <ul>
+                        {% for error in form.category.errors %}
+                        <li style="color: red;">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                <div class="field">
+                    <label style="color: #c59d5f;">Content</label>
+                    {% if form.content.errors %}
+                    <div class="ui form error">
+                        <div class="field error">
+                            {{ form.content }}
+                        </div>    
+                        <div class="ui error message">
+                            {% for error in form.content.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    </div> 
+                    {% else %}
+                    {{ form.content }}
+                    {% endif %}
+                </div>
+                <div class="field">
+                    <label style="color: #c59d5f;">Add a Picture</label>
+                    {{ form.picture }}
+                    {% if form.picture.errors %}
+                    <div class="ui form error">
+                        <div class="ui error message">
+                            {% for error in form.picture.errors %}
+                                <span>{{ error }}</span><br>
+                            {% endfor %}
+                        </div>
+                    </div>    
+                    {% endif %}
+                </div> 
+                <div>
+                    {{ form.submit(class="ui huge submit button") }}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

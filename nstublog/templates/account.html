@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="ui stackable container" style="display: flex; justify-content: center;">
+        <div class="ui segment" style="width: 50%; margin-top: 10rem;">
+            <img class="ui left floated circular image" style="height: 150px; width: 150px;" src="{{ image_file }}">
+            <h2>{{ current_user.username }}</h2>
+            <p>{{ current_user.email }}</p>
+            <form method="POST" action="" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+                <div class="ui huge form">
+                    <div class="field">
+                        <label style="color: #c59d5f;">Username</label>
+                        {% if form.username.errors %}
+                        <div class="ui form error">
+                            <div class="field error">
+                                {{ form.username }}
+                            </div>    
+                            <div class="ui error message">
+                                {% for error in form.username.errors %}
+                                <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>    
+                        {% else %}
+                        {{ form.username(placeholder="Username") }}
+                        {% endif %}
+                    </div>
+                    <div class="field">
+                        <label style="color: #c59d5f;">E-mail</label>
+                        {% if form.email.errors %}
+                        <div class="ui form error">
+                            <div class="field error">
+                                {{ form.email }}
+                            </div>    
+                            <div class="ui error message">
+                                {% for error in form.email.errors %}
+                                <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        </div> 
+                        {% else %}
+                        {{ form.email(placeholder="Enter your Email") }}
+                        {% endif %}
+                    </div>
+                    <div class="field">
+                        <label style="color: #c59d5f;">Update Profile Picture</label>
+                        {{ form.picture }}
+                        {% if form.picture.errors %}
+                        <div class="ui form error">
+                            <div class="ui error message">
+                                {% for error in form.picture.errors %}
+                                    <span>{{ error }}</span><br>
+                                {% endfor %}
+                            </div>
+                        </div>    
+                        {% endif %}
+                    </div>    
+                    <div>
+                        {{ form.submit(class="ui huge submit button") }}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock content %}
